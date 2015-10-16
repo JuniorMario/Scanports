@@ -1,5 +1,5 @@
 import socket
-ip = '192.168.56.1'
+ip = ''
 socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
  
 def scan(ip,port):
