@@ -1,19 +1,24 @@
 import socket as S
 ip = input("Digite o IP a ser scaneado: ")
-final = int(input("Digite a quantidade de portas a serem scaneadas: "))
+portas = input("Digite a quantidade de portas a serem scaneadas: ")
+
+if ',' in portas: portas = portas.split(',')
+elif '-' == portas: portas = range(1,65536)
+elif '-' in portas:
+        portas = portas.split('-')
+        portas = range(int(portas[0]), int(portas[1])+1)
+else: portas = [int(portas)]
+
 socket = S.socket(S.AF_INET, S.SOCK_STREAM)
 def analisa(ip, port):#faz a tentativa de conexão com a porta
 	try:
-		S.connect((ip, port))
+		socket.connect((ip, port))
 		return True
 	except:
-		return None
-for port in range(0, final):#gera o numero das portas
-	answer = analisa(ip, port)#envia a porta para a função analisa
-	if answer == None:#verifica a resposta
-		print('Nothing open')
-	elif answer == True:
-		print('Port open:', port)
-		break
-	else:
-		print('Error')		
+		return False
+for port in portas:
+        resposta = analisa(ip, int(port))
+        if resposta == True:
+                print('porta {port} ABERTA em {ip}'.format(port = port, ip = ip))
+        else:
+                print('porta {port} FECHADA em {ip}'.format(port = port, ip = ip))
