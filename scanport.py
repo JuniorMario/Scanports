@@ -1,3 +1,5 @@
+
+print("\nDeveloped By: Junior Mario and Diego Bernardes")
 import socket as S
 ip = input("Digite o IP a ser scaneado: ")
 portas = input("Digite a quantidade de portas a serem scaneadas: ")
